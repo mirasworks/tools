@@ -48,7 +48,7 @@ public abstract class CliCommandParser implements IArgsCommandParser {
             CommandLine cmd = parser.parse(options, args);
             internalParseCmd(cmd);
         } catch (ParseException e1) {
-            help.printHelp("wikipediaParser", options);
+            help.printHelp("--NO HELP--", options);
 
         }
 
