@@ -86,11 +86,18 @@ public abstract class CliApplication implements ICliApplication {
         }
     }
 
+    /**
+     * process commmand from input stream
+     */
     @Override
     public void parseInputStream(String line) {
         sysInParser.parse(line);
     }
 
+    /**
+     * process command  from start args
+     * @param args
+     */
     public void processCommand(String[] args) {
         commandParser.parseCmd(args);
 

@@ -41,6 +41,9 @@ public abstract class CliCommandParser implements IArgsCommandParser {
         initOptions();
     }
 
+    /**
+     * process command from the command line launch
+     */
     @Override
     public String parseCmd(String[] args) {
 
