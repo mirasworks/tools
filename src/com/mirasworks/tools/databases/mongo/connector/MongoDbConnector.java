@@ -9,7 +9,6 @@ import com.mongodb.Mongo;
 
 public class MongoDbConnector implements IDataBaseConnector {
 
-    private DB db;
     private static Mongo mongo;
 
     private static MongoDbConnector instance = new MongoDbConnector();

@@ -22,18 +22,18 @@ public class Pipeline<I, O> extends LinkedList<IPipe<I, O>> {
 		return in;
 	}
 
+	
+		
 	/**
-	 * apply the pipe and return the output new type in form of new type class
 	 * 
-	 * @param in
-	 * @return
+	 * @param I in
+	 * @return LinkedList<O>
 	 * @throws TransformException
 	 */
-
 	public LinkedList<O> processTransform(I in) throws TransformException {
 		LinkedList<O> transformeds = new LinkedList<O>();
 		for (IPipe<I, O> pipe : this) {
-			O out = pipe.processTransform(in);
+			O out = pipe.processCast(in);
 			transformeds.add(out);
 		}
 		return transformeds;

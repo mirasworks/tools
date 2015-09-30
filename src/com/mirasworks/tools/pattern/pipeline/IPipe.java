@@ -20,7 +20,7 @@ public interface IPipe<I, O> {
 	 /**
 	  * Apply a process on the I input type and return a different object Type
 	  * @param in
-	  * @return
+	  * @return O modified
 	  */
-	 O processTransform(I in) throws TransformException;
+	 O processCast(I in) throws TransformException;
 }

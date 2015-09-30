@@ -44,10 +44,10 @@ public abstract class CliApplication implements ICliApplication {
             buff = new BufferedReader(inputStream);
             String line = "";
 
-            System.err.println(getApplicationName() + " waiting for commands");
+            System.err.println(getApplicationName() + " waiting for commands : \"exit\" for terminate the process");
 
 
-            while (line.equalsIgnoreCase("q") == false) {
+            while (line.equalsIgnoreCase("exit") == false) {
                 Thread.sleep(100);
 
                 try {

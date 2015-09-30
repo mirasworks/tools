@@ -22,7 +22,7 @@ public class TransformerCleanSpaces implements  IPipe<String, String> {
 	 * replace double spaces by one
 	 */
 	@Override
-	public String processTransform(String str) {
+	public String processCast(String str) {
 		return process(str);
 	}
 
