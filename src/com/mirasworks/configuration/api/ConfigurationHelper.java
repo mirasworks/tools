@@ -6,7 +6,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.TreeSet;
 
-@Deprecated
+@Deprecated //Should be merged with something able to load from classPath or something else
 public class ConfigurationHelper {
 
     public ConfigurationHelper() {
@@ -18,7 +18,7 @@ public class ConfigurationHelper {
      *            file to load
      * @throws IOException
      */
-    @Deprecated
+    @Deprecated 
     public Properties loadPropertieFile(String fileName) throws IOException {
 
 

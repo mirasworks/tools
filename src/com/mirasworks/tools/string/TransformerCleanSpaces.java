@@ -1,36 +1,23 @@
 package com.mirasworks.tools.string;
 
-import com.mirasworks.tools.pattern.pipeline.IPipe;
-
 /**
  * 
- * @author Koda
- * remove double spaces
+ * Damien MIRAS remove double spaces
  */
-public class TransformerCleanSpaces implements  IPipe<String, String> {
+public class TransformerCleanSpaces  {
 
-	
 	/**
 	 * replace double spaces by one
 	 */
-	@Override
 	public String process(String str) {
-		return  str.replaceAll("\\s+", " ");
+		return str.replaceAll("\\s+", " ");
 	}
 
 	/**
 	 * replace double spaces by one
 	 */
-	@Override
 	public String processCast(String str) {
 		return process(str);
 	}
-
-	
-	
-
-
-
-
 
 }

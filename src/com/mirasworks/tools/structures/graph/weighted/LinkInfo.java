@@ -3,7 +3,7 @@ package com.mirasworks.tools.structures.graph.weighted;
 import java.util.Date;
 
 /**
- * @author Koda
+ * Damien MIRAS
  *         represent the link with it's strengh traversal
  *         expressed in percent
  *         Possible evolution is to compute markov

@@ -6,6 +6,5 @@ public class BadConfigurationException extends Exception {
 		super(string);
 	}
 
-	private static final long serialVersionUID = 1373789348661117324L;
 
 }

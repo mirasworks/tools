@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @deprecated bad implementation it realy cannot works at all
- * @author koda
+ * Damien MIRAS
  *
  * @param <T>
  */

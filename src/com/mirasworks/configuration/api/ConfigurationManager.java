@@ -17,7 +17,7 @@ import com.mirasworks.tools.file.FileUtil;
 
 /**
  *
- * @author Koda TODO @see
+ * Damien MIRAS TODO @see
  *
  *         <a href=
  *         http://commons.apache.org/proper/commons-io/javadocs/api-release/index.html?org/apache/commons/io/monitor/package-summary.html>
