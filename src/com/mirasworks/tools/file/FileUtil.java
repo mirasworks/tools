@@ -1,8 +1,10 @@
 package com.mirasworks.tools.file;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -10,6 +12,36 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 
 public class FileUtil {
+
+	public String readFile(String filename) {
+		BufferedReader reader = null;
+		StringBuilder strb = new StringBuilder();
+		try {
+			reader = new BufferedReader(new FileReader(filename));
+			String line;
+			while ((line = reader.readLine()) != null) {
+
+				strb.append(line);
+				// line;
+			}
+			reader.close();
+
+		} catch (Exception e) {
+			System.err.format("Exception occurred trying to read '%s'.", filename);
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (reader != null) {
+
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return strb.toString();
+	}
 
 	/*
 	 * @param n character count
@@ -35,7 +67,7 @@ public class FileUtil {
 			fileInputStream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			System.err.println("file not found in path " + path);
-			
+
 			return "";
 		} finally {
 			if (fileInputStream != null) {
@@ -44,7 +76,7 @@ public class FileUtil {
 				} catch (IOException e) {
 				}
 			}
-	
+
 		}
 
 		final int allocationSize = 4096;
@@ -76,14 +108,15 @@ public class FileUtil {
 				buf.clear();
 			}
 
-			return strBuff.toString();
 		} catch (IOException e) {
 			System.err.println("fileChannel can't be read");
 		} finally {
+			
 			if (fileInputStream != null) {
 				try {
 					fileInputStream.close();
 				} catch (IOException e) {
+					System.err.println("Error while closing file input stream");
 				}
 			}
 			if (fileChannel != null) {
@@ -95,7 +128,8 @@ public class FileUtil {
 			}
 
 		}
-		return "";
+
+		return strBuff.toString();
 	}
 
 	/**
