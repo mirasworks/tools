@@ -1,6 +1,7 @@
 package com.mirasworks.tools.file;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,6 +11,10 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class FileUtil {
 
@@ -155,5 +160,17 @@ public class FileUtil {
 		}
 		File f = new File(folder);
 		return f.exists();
+	}
+	
+	void write(List<String> aLines, String filePath, Charset encoding ) {
+		Path path = Paths.get(filePath);
+		try (BufferedWriter writer = Files.newBufferedWriter(path, encoding)) {
+			for (String line : aLines) {
+				writer.write(line);
+				writer.newLine();
+			}
+		} catch (IOException e) {
+			System.err.println("Error while reading file : \r\n" + e);
+		}
 	}
 }
