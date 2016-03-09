@@ -1,38 +1,65 @@
 package com.mirasworks.tools.databases.mongo.connector;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.bson.codecs.CollectibleCodec;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+
 import com.mirasworks.tools.databases.api.DataBaseException;
-import com.mirasworks.tools.databases.api.IDataBaseConnector;
-//import com.mongodb.DB;
-//import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.client.MongoDatabase;
 
-public class MongoDbConnector implements IDataBaseConnector {
+public class MongoDbConnector {
 
-   // private static Mongo mongo;
+	private MongoClient mongoClient = null;
 
-    private static MongoDbConnector instance = new MongoDbConnector();
+	private static MongoDbConnector instance = null;
+
+	private Map<String, CodecRegistry> codecs = new HashMap<String, CodecRegistry>();
+
+	public static synchronized MongoDbConnector getInstance() {
+		if (null == instance) {
+			instance = new MongoDbConnector();
+
+		}
+		return instance;
+	}
+
+	public MongoDbConnector() {
+
+		codecs.put("BSON", MongoClient.getDefaultCodecRegistry());
+	}
+
+	public void registerCodec(CollectibleCodec<?> codec) {
+		String entityClassName = codec.getEncoderClass().getName();
+		if (codecs.containsKey(entityClassName) == false) {
+			codecs.put(entityClassName, CodecRegistries.fromCodecs(codec));
+		}
+	}
 
 
-    public static synchronized MongoDbConnector getInstance() {
-        return instance;
-    }
-    @Override
-    public void connect(String host, int port) throws DataBaseException {
-//        try {
-//            mongo = new Mongo(host, port);
-//        } catch (UnknownHostException e) {
-//            throw new DataBaseException(e);
-//        }
+	public void connect(String host, int port)  {
+		
+		List<CodecRegistry> registries = new ArrayList<CodecRegistry>(codecs.values());
+		CodecRegistry codecRegistry = CodecRegistries.fromRegistries(registries);
+		MongoClientOptions options = MongoClientOptions.builder().codecRegistry(codecRegistry).build();
+		mongoClient = new MongoClient(host + ":" + port, options);
 
-    }
+	}
 
-    @Override
-    public void disconnect() throws DataBaseException {
-      //  mongo.close();
-    }
 
-//    public synchronized DB getDb(String dbName) {
-//        DB db = mongo.getDB(dbName);
-//
-//        return db;
-//    }
+	public void disconnect() throws DataBaseException {
+		mongoClient.close();
+	}
+
+	public synchronized MongoDatabase getDataBase(String dbName) {
+		MongoDatabase mongoDatabase = mongoClient.getDatabase(dbName);
+
+		return mongoDatabase;
+	}
 }
