@@ -11,7 +11,6 @@
 	<classpathentry kind="lib" path="lib/mongodb-driver-async-3.0.4.jar" sourcepath="lib/mongodb-driver-async-3.0.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb-driver-core-3.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/bson-3.0.4.jar" sourcepath="lib/bson-3.0.4-sources.jar"/>
-	<classpathentry kind="lib" path="lib/mongodb-driver-core-3.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb-driver-3.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
