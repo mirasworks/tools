@@ -8,7 +8,7 @@ import java.util.Date;
  *         expressed in percent
  *         Possible evolution is to compute markov
  */
-public class LinkInfo {
+public class Edge {
 
 	/**
 	 * how many percent the link had been added
@@ -19,7 +19,7 @@ public class LinkInfo {
 	private Date creationDate = null;
 	private Date lastUsedDate = null;
 
-	public LinkInfo() {
+	public Edge() {
 		creationDate = new Date();
 		lastUsedDate = new Date();
 	}

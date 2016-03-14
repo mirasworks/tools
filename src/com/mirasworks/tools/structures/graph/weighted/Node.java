@@ -16,7 +16,7 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	private Logger l = LoggerFactory.getLogger(Node.class);
 	private T content;
-	private SortedMap<Node<T>, LinkInfo> childs = new TreeMap<Node<T>, LinkInfo>();
+	private SortedMap<Node<T>, Edge> childs = new TreeMap<Node<T>, Edge>();
 
 	private SortedMap<Float, Node<T>> percentIndex = new TreeMap<Float, Node<T>>();
 
@@ -49,13 +49,13 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 	}
 
 	public void addNode(Node<T> node) {
-		LinkInfo link = null;
+		Edge link = null;
 
 		if (childs.containsKey(node)) {
 			link = childs.get(node);
 			link.incrementCount();
 		} else {
-			link = new LinkInfo();
+			link = new Edge();
 		}
 
 		childs.put(node, link);
@@ -72,8 +72,8 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		}
 		
 		
-		for (Map.Entry<Node<T>, LinkInfo> entry : childs.entrySet()) {
-			LinkInfo v = entry.getValue();
+		for (Map.Entry<Node<T>, Edge> entry : childs.entrySet()) {
+			Edge v = entry.getValue();
 			Node<T> node = entry.getKey();
 			int count = v.getCount();
 			Float percent = count * ratio;
@@ -90,8 +90,8 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		buffer.append(" ");
 		buffer.append(content.toString());
 		buffer.append("\r\n");
-		for (Map.Entry<Node<T>, LinkInfo> entry : childs.entrySet()) {
-			LinkInfo link = entry.getValue();
+		for (Map.Entry<Node<T>, Edge> entry : childs.entrySet()) {
+			Edge link = entry.getValue();
 			Node<T> node = entry.getKey();
 			buffer.append("\t--");
 			buffer.append(link.getPercent());
