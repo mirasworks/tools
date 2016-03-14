@@ -8,8 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @deprecated bad implementation it realy cannot works at all
- * Damien MIRAS
+ * bad implementation it realy cannot works at all Damien MIRAS
  *
  * @param <T>
  */
@@ -18,32 +17,13 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 	private Logger l = LoggerFactory.getLogger(Node.class);
 	private T content;
 	private SortedMap<Node<T>, LinkInfo> childs = new TreeMap<Node<T>, LinkInfo>();
+
 	private SortedMap<Float, Node<T>> percentIndex = new TreeMap<Float, Node<T>>();
 
-	private Integer totalOutCount = 0;
 	private NodeIndex<T> index;
-	private LinkInfo parentLink = null;
-
-	public LinkInfo getParentLink() {
-		return parentLink;
-	}
-
-	public void setParentLink(LinkInfo parentLink) {
-		this.parentLink = parentLink;
-	}
-
-	private Long id;
 
 	public Node(NodeIndex<T> nodeIndex) {
 		index = nodeIndex;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public T getContent() {
@@ -56,27 +36,6 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	public int size() {
 		return childs.size();
-	}
-
-	public T findBestMatch() {
-		if (percentIndex.isEmpty() == false) {
-			Float best = percentIndex.lastKey();
-			Node node = percentIndex.get(best);
-			if (node != null) {
-				//TODO make an unike entry point to pickup the node and update date
-				LinkInfo parentLink = node.getParentLink();
-				if (parentLink != null) {
-					parentLink.updateUsedDate();
-				}
-				return (T) node.getContent();
-			} else {
-				return null;
-			}
-		} else {
-			l.info("no best match {}", this.toString());
-			return null;
-		}
-
 	}
 
 	public void setContent(T content) {
@@ -98,17 +57,21 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 		} else {
 			link = new LinkInfo();
 		}
-		node.setParentLink(link);
+
 		childs.put(node, link);
-		totalOutCount++;
 
 		updateScores();
 	}
 
 	private void updateScores() {
 
-		Float ratio = 100.0f / totalOutCount;
-		// percentIndex.clear();
+		int childCount = childs.size();
+		Float ratio = 0f;
+		if (childCount > 0) {
+			ratio = 100.0f / childCount;
+		}
+		
+		
 		for (Map.Entry<Node<T>, LinkInfo> entry : childs.entrySet()) {
 			LinkInfo v = entry.getValue();
 			Node<T> node = entry.getKey();
