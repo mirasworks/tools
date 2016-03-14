@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
 	private Logger l = LoggerFactory.getLogger(Node.class);
+	
 	private T content;
 	private SortedMap<Node<T>, Edge> childs = new TreeMap<Node<T>, Edge>();
 
